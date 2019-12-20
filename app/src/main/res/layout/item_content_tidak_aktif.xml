@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="270dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/namaBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="12sp"
+            android:layout_toEndOf="@+id/fotoBarang"
+            android:text="nama" />
+
+        <TextView
+            android:id="@+id/ukuranBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/namaBarang"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/fotoBarang"
+            android:text="ukuran"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/merkBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ukuranBarang"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/fotoBarang"
+            android:background="@drawable/button"
+            android:padding="4dp"
+            android:text="merk"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fotoBarang"
+            android:layout_width="129dp"
+            android:layout_height="137dp"
+            android:src="@drawable/ic_profil" />
+
+        <ImageView
+            android:id="@+id/btn_open"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_above="@+id/textdetail"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="-3dp"
+            android:src="@drawable/ic_detail_logo" />
+        <TextView
+            android:id="@+id/textdetail"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/fotoBarang"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:text="detail"
+            android:textSize="@dimen/_7"
+            android:textAlignment="center"/>
+
+        <ImageView
+            android:id="@+id/btn_aktifkan"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_above="@+id/textAktif"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toEndOf="@+id/fotoBarang"
+            android:src="@drawable/ic_aktifkan_ulang" />
+
+        <TextView
+            android:id="@+id/textAktif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/fotoBarang"
+            android:layout_marginStart="10dp"
+            android:text="jadikan tersedia"
+            android:textAlignment="center"
+            android:textSize="@dimen/_7"
+            android:layout_toEndOf="@+id/fotoBarang"
+            android:src="@drawable/ic_aktifkan_ulang" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,277 @@
+package com.agus.hendrik.activity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.location.Location;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.agus.hendrik.model.Barang;
+import com.agus.hendrik.myapp.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.Result;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import android.telephony.TelephonyManager;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
+import static android.Manifest.permission_group.CAMERA;
+
+public class ScanCode extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+    private static final String TAG = "Scan Code";
+    private ZXingScannerView mQRScanner;
+    String hasilScan;
+    DatabaseReference storageBarang;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_scan_code);
+        mQRScanner = new ZXingScannerView(this);
+
+        ViewGroup contentFrame = findViewById(R.id.content_frame);
+        ImageView ivBack = findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            }
+        });
+
+        mQRScanner.setResultHandler(this);
+        if (isCameraAllowed()) {
+            contentFrame.addView(mQRScanner);
+            mQRScanner.startCamera();
+        }
+
+
+    }
+
+    private void getLocation() {
+        // GET CURRENT LOCATION
+        FusedLocationProviderClient mFusedLocation = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null){
+                    String lat = String.valueOf(location.getLatitude());
+                    String lon = String.valueOf(location.getLongitude());
+                    // Do it all with location
+                    //-7.2011608,110.7960567,8
+                    //-7.7803234,110.3910932 lokasi bvj
+                    Log.e("My Current location", "Lat : " + location.getLatitude() + " Long : " + location.getLongitude());
+                    /*String uri = String.format(Locale.ENGLISH, "geo:%f,%f", -7.2011608,110.7960567);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    startActivity(intent);*/
+                    /*Uri navigationIntentUri = Uri.parse("google.navigation:q=" + location.getLatitude() + "," + location.getLongitude());
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, navigationIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);*/
+
+                }
+            }
+        });
+    }
+
+    private void mapbvj() {
+        Uri navigationIntentUri = Uri.parse("google.navigation:q=" + -7.780904 + "," + 110.391409);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, navigationIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
+    private void webbvj() {
+        String uri = "http://bakulvariasijogja.blogspot.com";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mQRScanner.setResultHandler(this);
+        mQRScanner.startCamera();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mQRScanner.stopCamera();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    private boolean isCameraAllowed() {
+        boolean flag = false;
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            flag = true;
+        }
+        return flag;
+    }
+
+    @Override
+    public void handleResult(Result rawQRData) {
+        String dataURL_QR = rawQRData.getText();
+
+        Log.e(TAG, "Hasil scan: "+dataURL_QR );
+        Log.d(TAG, rawQRData.getBarcodeFormat().toString());
+
+        hasilScan = rawQRData.getText();
+        storageBarang = FirebaseDatabase.getInstance().getReference();
+        final Query queryNew =  FirebaseDatabase.getInstance().getReference()
+                .child("Barang").orderByChild("code_barang").equalTo(hasilScan);
+        queryNew.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Barang barangScan = null;
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        barangScan = dataSnapshot1.getValue(Barang.class);
+                    }
+                    result_scan(barangScan);
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ScanCode.this);
+                    builder.setCancelable(false);
+                    builder.setTitle("Barang tidak terdata");
+                    builder.setMessage("Pastikan barang yang anda beli asli dari BVJ");
+                    builder.setNegativeButton("Tutup", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //if user select "No", just cancel this dialog and continue with app
+                            dialog.cancel();
+                            onResume();
+                        }
+                    });
+                    AlertDialog alert1 = builder.create();
+                    alert1.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    private void result_scan(final Barang barangScan) {
+        final String nama = barangScan.getNama();
+        final String code_barang = barangScan.getCode_barang();
+        final String foto = barangScan.getFoto();
+        final int no = barangScan.getNo();
+        final String merk = barangScan.getMerk();
+        final String satuan = barangScan.getSatuan();
+        final String keterangan = barangScan.getKeterangan();
+        final String status = barangScan.getStatus();
+        final String ukuran = barangScan.getUkuran();
+        final String kategori = barangScan.getKategori();
+        final double harga = barangScan.getHarga();
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        @SuppressLint("InflateParams")
+        final View dialogView = inflater.inflate(R.layout.result_scan, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog b = dialogBuilder.create();
+        b.setCanceledOnTouchOutside(true);
+        b.setCancelable(false);
+        b.show();
+
+        TextView tvcode = dialogView.findViewById(R.id.et_code_barang);
+        tvcode.setText(code_barang);
+
+        TextView tvstatus = dialogView.findViewById(R.id.et_status);
+        tvstatus.setText(status);
+
+
+        CircleImageView ImageFoto = dialogView.findViewById(R.id.iv_foto_barang);
+        Picasso.get()
+                .load(foto)
+                .fit()
+                .into(ImageFoto);
+
+        ImageView close = dialogView.findViewById(R.id.btn_close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                b.dismiss();
+                onResume();
+            }
+        });
+
+        ImageView nav = dialogView.findViewById(R.id.ic_navigasi);
+        nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapbvj();
+            }
+        });
+        TextView detail = dialogView.findViewById(R.id.btn_detail);
+        detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bun = new Bundle();
+                Intent intent = new Intent(ScanCode.this, DetailBarangActivity.class);
+                bun.putString("nama", nama);
+                bun.putInt("no", no);
+                bun.putString("merk", merk);
+                bun.putString("code_barang", code_barang);
+                bun.putString("satuan", satuan);
+                bun.putString("keterangan", keterangan);
+                bun.putString("ukuran", ukuran);
+                bun.putString("kategori", kategori);
+                bun.putString("foto", foto);
+                bun.putDouble("harga", harga);
+                intent.putExtras(bun);
+                startActivity(intent);
+            }
+        });
+
+    }
+}

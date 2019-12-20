@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:paddingTop="10dp"
+        android:paddingStart="0dp"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btn_close"
+            android:layout_alignBottom="@+id/btn_close"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_logo_bvj" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btn_close"
+            android:layout_alignBottom="@+id/btn_close"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="-7dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toEndOf="@+id/info"
+            android:gravity="center"
+            android:text="Profile BVJ"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button_red"
+            android:src="@drawable/ic_close_white" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/frame_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="15dp"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="Bakul Variasi Jogja (BVJ) "
+            android:textSize="18sp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginStart="15dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:text="Merupakan merupakan toko variasi dan penjualan alat – alat motor yang telah berdiri sejak tahun 2013"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginStart="15dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:text="Bakul Variasi Jogja (BVJ) beralamatkan di Jl. Perkutut no. 07 Demangan Baru Yogyakarta"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:padding="10dp"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black"
+            android:text="Selama satu tahun toko variasi tersebut memiliki cukup banyak pelanggan sehingga pemilik toko memperluas usahanya dengan cara menambah alat – alat variasi motor agar dapat langsung di aplikasikan."
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:padding="10dp"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black"
+            android:text="Hingga kini BVJ menyediakan bermacam part motor mulai dari standar bahkan hingga part racing yang berjumlah lebih dari 10.000 product yang telah di jual"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ic_web"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_word"
+        android:layout_below="@id/frame_text"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp"
+        />
+
+    <ImageView
+        android:id="@+id/ic_fb"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/frame_text"
+        android:layout_marginEnd="15dp"
+        android:layout_toStartOf="@+id/ic_web"
+        android:src="@drawable/ic_ig"
+        android:padding="5dp"/>
+
+    <ImageView
+        android:id="@+id/ic_lokasi"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/frame_text"
+        android:layout_marginEnd="15dp"
+        android:layout_toStartOf="@+id/ic_fb"
+        android:src="@drawable/ic_location_on_black_24dp"
+        android:padding="5dp"
+        android:layout_marginBottom="30dp"/>
+
+</RelativeLayout>

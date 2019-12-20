@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="0dp">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:paddingTop="0dp"
+        android:paddingStart="0dp"
+        android:background="@color/colorPrimaryDark"
+        android:paddingEnd="0dp">
+    <ImageView
+        android:id="@+id/info"
+        android:src="@drawable/ic_tentang_white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/info"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="About App" />
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/button_red"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_close_white" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/frame_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="Auth product"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="adalah aplikasi android untuk mengetahui keaslian barang yang di jual di "
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="Bakul Variasi Jogja (BVJ) "
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pemanfaatan layanan firebase database, QR Code / Bar Code dan penggunaan kamera smartphone android serta adanya jaringan internet membantu menyempurnakan aplikasi Auth product."
+            android:justificationMode="inter_word"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            tools:ignore="UnusedAttribute"/>
+        <TextView
+            android:id="@+id/_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Silahkan cek keaslian barang dengan memilih menu Scan."
+            android:justificationMode="inter_word"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            tools:ignore="UnusedAttribute"/>
+        <TextView
+            android:id="@+id/_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pastikan perangkat android terhubung dengan internet. "
+            android:justificationMode="inter_word"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            tools:ignore="UnusedAttribute"/>
+        <TextView
+            android:id="@+id/_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pastikan QR Code / Bar Code dapat dideteksi oleh kamera perangkat android. "
+            android:justificationMode="inter_word"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            tools:ignore="UnusedAttribute"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
