@@ -11,8 +11,8 @@ public class Barang {
     public Barang(String nama, int no, String foto, String code_barang, String merk,String satuan, String keterangan, String ukuran, String kategori, double harga, String status) {
         this.nama = nama;
         this.no = no;
-        this.foto = code_barang;
-        this.code_barang = foto;
+        this.foto = foto;
+        this.code_barang = code_barang;
         this.merk = merk;
         this.satuan = satuan;
         this.keterangan = keterangan;
