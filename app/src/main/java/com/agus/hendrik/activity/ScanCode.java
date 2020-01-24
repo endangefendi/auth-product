@@ -28,10 +28,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agus.hendrik.model.Barang;
+import com.agus.hendrik.model.WaktuCek;
 import com.agus.hendrik.myapp.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +44,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -211,6 +218,7 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
         final String ukuran = barangScan.getUkuran();
         final String kategori = barangScan.getKategori();
         final double harga = barangScan.getHarga();
+        add_waktu_cek(code_barang);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -273,5 +281,25 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
             }
         });
 
+    }
+
+    private void add_waktu_cek( String code_barang){
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss",Locale.US);
+        String date = sdf.format(now.getTime());
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
+        String uid = currentUser.getUid();
+        final int idcek = 1 ;
+        Date dateInput = null;
+        try {
+            dateInput = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        WaktuCek save = new WaktuCek(idcek,uid,code_barang,dateInput);
+        FirebaseDatabase.getInstance().getReference("Waktu_Cek")
+                .child(String.valueOf(idcek)).setValue(save);
     }
 }

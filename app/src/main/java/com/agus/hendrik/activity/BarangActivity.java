@@ -26,7 +26,6 @@ public class BarangActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<Barang> list;
     BarangAdapter adapter;
-    String agus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
