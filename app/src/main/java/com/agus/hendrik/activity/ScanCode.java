@@ -64,13 +64,13 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
     private ZXingScannerView mQRScanner;
     String hasilScan;
     DatabaseReference storageBarang;
-
+    private int idcek;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_code);
         mQRScanner = new ZXingScannerView(this);
-
+        jumalahcek();
         ViewGroup contentFrame = findViewById(R.id.content_frame);
         ImageView ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +160,7 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
     public void handleResult(Result rawQRData) {
         String dataURL_QR = rawQRData.getText();
 
-        Log.e(TAG, "Hasil scan: "+dataURL_QR );
+        Log.d(TAG, "Hasil scan: "+dataURL_QR );
         Log.d(TAG, rawQRData.getBarcodeFormat().toString());
 
         hasilScan = rawQRData.getText();
@@ -207,6 +207,7 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
     }
 
     private void result_scan(final Barang barangScan) {
+        mQRScanner.stopCamera();
         final String nama = barangScan.getNama();
         final String code_barang = barangScan.getCode_barang();
         final String foto = barangScan.getFoto();
@@ -250,6 +251,7 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
             public void onClick(View v) {
                 b.dismiss();
                 onResume();
+                mQRScanner.startCamera();
             }
         });
 
@@ -283,23 +285,33 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
 
     }
 
-    private void add_waktu_cek( String code_barang){
+    private void add_waktu_cek(String code_barang){
         Calendar now = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss",Locale.US);
         String date = sdf.format(now.getTime());
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert currentUser != null;
         String uid = currentUser.getUid();
-        final int idcek = 1 ;
-        Date dateInput = null;
-        try {
-            dateInput = sdf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        WaktuCek save = new WaktuCek(idcek,uid,code_barang,dateInput);
+        Log.d(TAG,"ADD WAKTU CEK : "+idcek+" - "+uid+" - "+code_barang+" - "+date);
+        WaktuCek save = new WaktuCek(idcek,uid,code_barang,date);
         FirebaseDatabase.getInstance().getReference("Waktu_Cek")
                 .child(String.valueOf(idcek)).setValue(save);
+    }
+
+    private void jumalahcek() {
+        Query queryNew =  FirebaseDatabase.getInstance().getReference().child("Waktu_Cek").orderByChild("idcek");
+        queryNew.addValueEventListener (new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int size = (int) dataSnapshot.getChildrenCount();
+                idcek = size + 1;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(ScanCode.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

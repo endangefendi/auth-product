@@ -62,7 +62,6 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
             "Box",
             "Pasang",
             "Lusin"};
-    ArrayList<Barang> list_product;
     private Uri resultUri;
 
 
@@ -75,7 +74,6 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        list_product = new ArrayList<>();
 
         cekjumlahbarang();
         setContentView(R.layout.activity_create);
@@ -240,12 +238,9 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
                                     String final_keterangan = strketerangan;
                                     String final_ukuran = strukuran;
                                     double final_harga = Double.parseDouble(strharga);
-                                // Barang(nama, no, code_barang,
-                                    // foto, merk, satuan, keterangan, ukuran,
-                                    // kategori, harga,  status) {
 
-                                    Barang upload = new Barang(final_nama, final_no, final_code_barang,
-                                            final_foto, final_merk, final_satuan , final_keterangan, final_ukuran,
+                                    Barang upload = new Barang(final_nama, final_no,
+                                            final_foto, final_code_barang, final_merk, final_satuan , final_keterangan, final_ukuran,
                                             "New", final_harga, "Tersedia");
                                     FirebaseDatabase.getInstance().getReference("Barang")
                                             .child(String.valueOf(final_no)).setValue(upload);
@@ -407,10 +402,6 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
         //apakah barang code sudah digunakan?
         //jika belum tambah
         //jika sudah tidak bisa melanjutkan
-        /*asjndkjansjkdnkanskdnas
-                asdnkasnkdnaks
-                asndjaskjndkjas
-        */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setTitle("Berahsil scan");
@@ -439,17 +430,10 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
     }
 
     private void cekjumlahbarang() {
-
         Query queryNew =  FirebaseDatabase.getInstance().getReference().child("Barang").orderByChild("no");
         queryNew.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list_product.clear();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Barang newBarang = dataSnapshot1.getValue(Barang.class);
-                    list_product.add(newBarang);
-                }
-
                 int size = (int) dataSnapshot.getChildrenCount();
                 no.setText( String.valueOf(size+1));
                 strno=no.toString();
@@ -464,6 +448,7 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
 
     @Override
     public void onBackPressed() {
+        //ketika tombol back di tekan maka akan menutup activity
         finish();
     }
 }

@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name="com.agus.hendrik.activity.EditAdminActicity"></activity>
+
+        <activity android:name="com.agus.hendrik.activity.EditAdminActicity"/>
         <activity android:name="com.agus.hendrik.activity.EditKategoriActivity" />
         <activity android:name="com.agus.hendrik.activity.DashboadAdmin" />
         <activity android:name="com.agus.hendrik.activity.DetailBarangActivity" />
