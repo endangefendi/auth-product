@@ -21,7 +21,9 @@ import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -47,15 +50,18 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class CreateActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ProgressDialog progressDialog;
+    private DatabaseReference databaseBarang;
 
     private static final String TAG = "Create Activity";
     private ZXingScannerView mQRScanner;
-    TextView nama, no, code_barang, merk, satuan, keterangan, ukuran, harga;
+    EditText nama, code_barang, merk, satuan, keterangan, ukuran, harga;
+    TextView no;
     String strnama, strno, strcode_barang, strmerk, strsatuan, strketerangan, strukuran, strharga, strfoto;
     String code_scan, ss;
     ImageView imageView;
     ViewGroup contentFrame;
     Bitmap bitmap;
+    LinearLayout framForm;
 
     private String[] Ssatuan = {
             "Pcs",
@@ -75,6 +81,8 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        databaseBarang = FirebaseDatabase.getInstance().getReference("Barang");
+
         cekjumlahbarang();
         setContentView(R.layout.activity_create);
         ImageView ivBack = findViewById(R.id.iv_back);
@@ -88,6 +96,7 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
 
         progressDialog = new ProgressDialog(this);
 
+        framForm =findViewById(R.id.framForm);
         imageView =findViewById(R.id.image);
         nama =  findViewById(R.id.et_namaBarang);
         no =  findViewById(R.id.et_no);
@@ -399,9 +408,63 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
     public void handleResult(Result rawQRData) {
         code_scan = rawQRData.getText();
         //cek ke data base
-        //apakah barang code sudah digunakan?
-        //jika belum tambah
-        //jika sudah tidak bisa melanjutkan
+
+        cekCodeExis(code_scan);
+
+    }
+
+
+    private void cekCodeExis(final String code) {
+        databaseBarang = FirebaseDatabase.getInstance().getReference().child("Barang");
+        databaseBarang.orderByChild("code_barang").equalTo(code_scan)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //apakah barang code sudah digunakan mesan error?
+                        //jika belum ada melanjutkan
+                        if (dataSnapshot.exists()) {
+                            pop_up(code);
+                            framForm.setVisibility(View.GONE);
+                        } else {
+                            berhasilScan();
+                        }
+                    }
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        code_barang.setError(code_scan+" already exists");
+                        mQRScanner.setResultHandler(CreateActivity.this);
+                        mQRScanner.startCamera();
+                    }
+                });
+    }
+
+    private void pop_up(String code_scan) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("Warning");
+        builder.setMessage(code_scan+" already exists");
+        builder.setPositiveButton("Ulangi", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+                onResume();
+                framForm.setVisibility(View.VISIBLE);
+            }
+        });
+        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+                onStop();
+                finish();
+            }
+        });
+        AlertDialog alert1 = builder.create();
+        alert1.show();
+    }
+
+    private void berhasilScan() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setTitle("Berahsil scan");

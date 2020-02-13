@@ -82,7 +82,7 @@
     <RelativeLayout
         android:id="@+id/framFoto"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="300dp"
         android:layout_below="@+id/toolbar"
         android:orientation="horizontal">
 
@@ -97,6 +97,8 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/_10" />
+
+
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -104,6 +106,7 @@
         android:layout_below="@id/framFoto">
 
         <LinearLayout
+            android:id="@+id/framForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -139,6 +142,7 @@
                         android:enabled="false"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
+
                 </LinearLayout>
             </RelativeLayout>
 
@@ -408,4 +412,5 @@
                 android:id="@+id/image"/>
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>
