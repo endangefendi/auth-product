@@ -57,11 +57,11 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_foto_barang"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignTop="@+id/frame_text"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="15dp"
         android:layout_alignParentEnd="true"
         android:foregroundGravity="center"
         android:src="@drawable/ic_profil"
@@ -85,29 +85,31 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="casual"
-                    android:text="Code : "
-                    android:textSize="12sp"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:id="@+id/et_code_barang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:fontFamily="casual"
-                    android:text="kode barang"
-                    android:textSize="16sp"
-                    android:textColor="@color/biru"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                android:fontFamily="casual"
+                android:text="Code : "
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/et_code_barang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:fontFamily="casual"
+                android:text="kode barang"
+                android:textColor="@color/biru"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
 
         <TextView

@@ -44,6 +44,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.zxing.Result;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -51,6 +52,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class CreateActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ProgressDialog progressDialog;
     private DatabaseReference databaseBarang;
+    String gambar = null;
 
     private static final String TAG = "Create Activity";
     private ZXingScannerView mQRScanner;
@@ -198,6 +200,7 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
                                 //Mengambil gambar dari Kemara ponsel
                                 Intent imageIntentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                 startActivityForResult(imageIntentCamera, REQUEST_CODE_CAMERA);
+                                gambar = "camera";
                                 break;
 
                             case 1:
@@ -205,6 +208,8 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
                                 Intent imageIntentGallery = new Intent(Intent.ACTION_PICK,
                                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                                 startActivityForResult(imageIntentGallery, REQUEST_CODE_GALLERY);
+                                gambar = "gallery";
+
                                 break;
                         }
                     }
@@ -224,8 +229,7 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
             progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Saving Data");
             progressDialog.show();
-            final StorageReference storageReferences = storageReference.child("foto/"+ System.currentTimeMillis()+ "." +
-                    getFileExtension(resultUri));
+            final StorageReference storageReferences = storageReference.child("foto/"+ System.currentTimeMillis()+ "." +getFileExtension(resultUri));
             storageReferences.putFile(resultUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -358,8 +362,77 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
         if (strharga.isEmpty()){
             harga.setError("Insert data");
             harga.requestFocus();
-        }else saving();
+        }
+        if (gambar.equals("gallery")){
+                saving();
+        }else{
+            savingFromCamera();
+        }
+
     }
+
+    private void savingFromCamera() {
+        if (resultUri != null || bitmap != null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Saving Data");
+            progressDialog.show();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+            byte[] b = stream.toByteArray();
+            final StorageReference storageReferences = storageReference.child("foto/"+ System.currentTimeMillis());
+            storageReferences.putBytes(b)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageReferences.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    strfoto = String.valueOf(uri);
+
+                                    progressDialog.dismiss();
+                                    Toast.makeText(CreateActivity.this,
+                                            "Saving Data successfully", Toast.LENGTH_SHORT).show();
+                                    String final_nama = strnama ;
+                                    int final_no = Integer.parseInt(strno);
+                                    String final_code_barang = strcode_barang;
+                                    String final_foto = strfoto;
+                                    String final_merk = strmerk;
+                                    String final_satuan = strsatuan+" "+ss;
+                                    String final_keterangan = strketerangan;
+                                    String final_ukuran = strukuran;
+                                    double final_harga = Double.parseDouble(strharga);
+
+                                    Barang upload = new Barang(final_nama, final_no,
+                                            final_foto, final_code_barang, final_merk, final_satuan , final_keterangan, final_ukuran,
+                                            "New", final_harga, "Tersedia");
+                                    FirebaseDatabase.getInstance().getReference("Barang")
+                                            .child(String.valueOf(final_no)).setValue(upload);
+                                    konfirTambahLagi();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(CreateActivity.this, e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) /
+                            taskSnapshot.getTotalByteCount();
+                    progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
+                }
+            });
+        } else {
+            Toast.makeText(this,"Make sure all data is correct",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void tampil_pop() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
