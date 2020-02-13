@@ -90,42 +90,11 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
 
     }
 
-    private void getLocation() {
-        // GET CURRENT LOCATION
-        FusedLocationProviderClient mFusedLocation = LocationServices.getFusedLocationProviderClient(this);
-        mFusedLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null){
-                    String lat = String.valueOf(location.getLatitude());
-                    String lon = String.valueOf(location.getLongitude());
-                    // Do it all with location
-                    //-7.2011608,110.7960567,8
-                    //-7.7803234,110.3910932 lokasi bvj
-                    Log.e("My Current location", "Lat : " + location.getLatitude() + " Long : " + location.getLongitude());
-                    /*String uri = String.format(Locale.ENGLISH, "geo:%f,%f", -7.2011608,110.7960567);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                    startActivity(intent);*/
-                    /*Uri navigationIntentUri = Uri.parse("google.navigation:q=" + location.getLatitude() + "," + location.getLongitude());
-                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, navigationIntentUri);
-                    mapIntent.setPackage("com.google.android.apps.maps");
-                    startActivity(mapIntent);*/
-
-                }
-            }
-        });
-    }
-
     private void mapbvj() {
         Uri navigationIntentUri = Uri.parse("google.navigation:q=" + -7.780904 + "," + 110.391409);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, navigationIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
-    }
-    private void webbvj() {
-        String uri = "http://bakulvariasijogja.blogspot.com";
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        startActivity(intent);
     }
 
 
@@ -287,7 +256,7 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
 
     private void add_waktu_cek(String code_barang){
         Calendar now = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss",Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss",Locale.getDefault());
         String date = sdf.format(now.getTime());
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert currentUser != null;

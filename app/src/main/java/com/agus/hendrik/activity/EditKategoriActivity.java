@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class EditKategoriActivity extends AppCompatActivity {
 
     private String[] kkategori = {
-            "",
+            "New",
             "Old",
             "Best"};
 
@@ -50,7 +50,7 @@ public class EditKategoriActivity extends AppCompatActivity {
 
     String kat,ss;
     private ProgressDialog progressDialog;
-
+    private Spinner spin,spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +68,13 @@ public class EditKategoriActivity extends AppCompatActivity {
         ukuran =  findViewById(R.id.et_ukuranBarang);
         harga = findViewById(R.id.et_harga);
         foto = findViewById(R.id.fotoBarang);
+        ImageView backButton = findViewById(R.id.iv_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         final Bundle bun = this.getIntent().getExtras();
         progressDialog = new ProgressDialog(this);
@@ -79,58 +86,86 @@ public class EditKategoriActivity extends AppCompatActivity {
             satuan.setText(bun.getString("satuan"));
             keterangan.setText(bun.getString("keterangan"));
             ukuran.setText(bun.getString("ukuran"));
+            final String kategori = bun.getString("kategori");
 
             String Ssatuan = bun.getString("satuan");
             int i = Ssatuan.indexOf(" ");
-             String ukus = Ssatuan.substring(0,i);
-            satuan.setText(ukus);
+            String noSatuan = Ssatuan.substring(0,i);
+            satuan.setText(noSatuan);
+            final String sat = Ssatuan.substring(i,Ssatuan.length());
 
-            final Spinner spinner = findViewById(R.id.satuanSpiner);
-            final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_checked, arr);
-            spinner.setAdapter(adapter);
+            spinner = findViewById(R.id.satuanSpiner);
+            spin = findViewById(R.id.spinner);
+            final ArrayAdapter<String> adapterArr = new ArrayAdapter<>(this,
+                    android.R.layout.simple_list_item_1, arr);
+            spinner.setAdapter(adapterArr);
+
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     ss = spinner.getSelectedItem().toString();
+                    Toast.makeText(EditKategoriActivity.this,"" +
+                            spinner.getSelectedItemId(),Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
-
+                    if (kategori != null) {
+                        switch (kategori) {
+                            case "Best":
+                                spinner.setSelection(2);
+                                break;
+                            case "Old":
+                                spinner.setSelection(1);
+                                break;
+                            case "New":
+                                spinner.setSelection(0);
+                                break;
+                        }
+                    }
                 }
             });
+
+
+            ArrayAdapter<String> adapterKategori = new ArrayAdapter<>(this,
+                    android.R.layout.simple_list_item_1, kkategori);
+            spin.setAdapter(adapterKategori);
+            spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    kat = spin.getSelectedItem().toString();
+                    Toast.makeText(EditKategoriActivity.this,"" +
+                            spin.getSelectedItemId(),Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    switch (sat) {
+                        case "Lusin":
+                            spin.setSelection(3);
+                            break;
+                        case "Box":
+                            spin.setSelection(1);
+                            break;
+                        case "Pasang":
+                            spin.setSelection(2);
+                            break;
+                        case "Pcs":
+                            spin.setSelection(0);
+                            break;
+                    }
+                }
+            });
+
+
             merk.setText(bun.getString("merk"));
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Barang")
-                    .child(no.getText().toString()).child("harga");
+            double h = bun.getDouble("harga");
+            harga.setText(String.valueOf(Math.round(h)));
 
-            try {
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String a = String.valueOf(dataSnapshot.getValue());
-                        harga.setText(a);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        harga.setText("");
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             Glide.with(this)
                     .load(bun.getString("foto"))
                     .into(foto);
 
-            ImageView backButton = findViewById(R.id.iv_back);
-            backButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
             foto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -168,22 +203,6 @@ public class EditKategoriActivity extends AppCompatActivity {
             merk.setText("");
         }
 
-        final Spinner spin = findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_checked, kkategori);
-        spin.setAdapter(adapter);
-        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                kat = spin.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                kat="";
-            }
-        });
-
         ImageView ivSave = findViewById(R.id.iv_save);
         ivSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,8 +221,8 @@ public class EditKategoriActivity extends AppCompatActivity {
                 String final_foto = bun.getString("foto");
                 double final_harga = bun.getDouble("harga");
 
-                Barang upload = new Barang(final_nama, final_no, final_code_barang,
-                        final_foto, final_merk, final_satuan, final_keterangan, final_ukuran,
+                Barang upload = new Barang(final_nama, final_no, final_foto, final_code_barang,
+                        final_merk, final_satuan, final_keterangan, final_ukuran,
                         kat, final_harga, "Tersedia");
                 FirebaseDatabase.getInstance().getReference("Barang")
                         .child(String.valueOf(final_no)).setValue(upload);
