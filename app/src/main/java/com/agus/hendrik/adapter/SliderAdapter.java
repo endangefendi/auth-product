@@ -28,7 +28,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         @Override
         public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
 //            viewHolder.textViewDescription.setText("This is slider item " + position);
-            viewHolder.textViewDescription.setText("Authentication Item at BVJ ");
+            viewHolder.textViewDescription.setText("Check Item at BVJ ");
             switch (position) {
                 case 0:
                     Glide.with(viewHolder.itemView)

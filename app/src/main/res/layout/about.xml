@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="casual"
-            android:text="Auth product"
+            android:text="@string/app_name"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textStyle="bold" />
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="adalah aplikasi android untuk mengetahui keaslian barang yang di jual di "
+            android:text="adalah aplikasi android untuk mengecek barang yang di jual di "
             android:layout_margin="5dp"/>
         <TextView
             android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
             android:id="@+id/_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pemanfaatan layanan firebase database, QR Code / Bar Code dan penggunaan kamera smartphone android serta adanya jaringan internet membantu menyempurnakan aplikasi Auth product."
+            android:text="Pemanfaatan layanan firebase database yang disegiakan Google, pembacaan QR Code / Bar Code dengan penggunaan kamera smartphone android serta adanya jaringan internet untuk membantu menyempurnakan aplikasi Check Product."
             android:justificationMode="inter_word"
             android:layout_margin="5dp"
             android:textAlignment="center"
@@ -97,7 +97,7 @@
             android:id="@+id/_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Silahkan cek keaslian barang dengan memilih menu Scan."
+            android:text="Silahkan mengecek barang dengan memilih menu Scan."
             android:justificationMode="inter_word"
             android:layout_margin="5dp"
             android:textAlignment="center"

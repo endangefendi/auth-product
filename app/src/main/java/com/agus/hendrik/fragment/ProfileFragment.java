@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +99,7 @@ public class ProfileFragment extends Fragment {
             String strnama_lengkap = getArguments().getString("nama_lengkap");
             String strfoto = getArguments().getString("foto");
             String stremail = getArguments().getString("email");
-
+            Log.e(TAG,""+strnama_lengkap);
             namaDepan.setText(strnama_depan);
             namaBelakang.setText(strnama_belakang);
             namaLengkap.setText(strnama_lengkap);

@@ -219,7 +219,7 @@ public class EditKategoriActivity extends AppCompatActivity {
                 String final_ukuran =  ukuran.getText().toString();
                 assert bun != null;
                 String final_foto = bun.getString("foto");
-                double final_harga = bun.getDouble("harga");
+                double final_harga = Double.parseDouble(harga.getText().toString());
 
                 Barang upload = new Barang(final_nama, final_no, final_foto, final_code_barang,
                         final_merk, final_satuan, final_keterangan, final_ukuran,

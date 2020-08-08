@@ -228,6 +228,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        deviceId = telephonyManager.getDeviceId();
+        deviceId = telephonyManager.getDeviceSoftwareVersion();
     }
 }

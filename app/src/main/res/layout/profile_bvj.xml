@@ -82,7 +82,7 @@
             android:layout_marginStart="15dp"
             android:padding="10dp"
             android:textColor="@color/black"
-            android:text="Merupakan merupakan toko variasi dan penjualan alat – alat motor yang telah berdiri sejak tahun 2013"
+            android:text="Merupakan toko variasi dan penjualan alat – alat motor yang telah berdiri sejak tahun 2013"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
         />
 
     <ImageView
-        android:id="@+id/ic_fb"
+        android:id="@+id/ic_ig"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@id/frame_text"
@@ -141,7 +141,7 @@
         android:layout_height="30dp"
         android:layout_below="@id/frame_text"
         android:layout_marginEnd="15dp"
-        android:layout_toStartOf="@+id/ic_fb"
+        android:layout_toStartOf="@+id/ic_ig"
         android:src="@drawable/ic_location_on_black_24dp"
         android:padding="5dp"
         android:layout_marginBottom="30dp"/>

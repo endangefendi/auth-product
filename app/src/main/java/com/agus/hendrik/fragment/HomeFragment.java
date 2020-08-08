@@ -51,7 +51,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
 
     private ProgressBar pBar,pBarNew;
     private TextView tvUsername,tvEmail,tvTitle;
-    private RelativeLayout frame;
     private RecyclerView recyclerView, recyclerViewnew;
     private ArrayList<Barang> list,listNew;
 
@@ -67,7 +66,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         grdView     = view.findViewById(R.id.gv_list);
         pBar = view.findViewById(R.id.progressBar);
         pBarNew = view.findViewById(R.id.progressBar1);
-        frame = view.findViewById(R.id.frameTitle);
+        RelativeLayout frame = view.findViewById(R.id.frameTitle);
         frame.setVisibility(View.VISIBLE);
         tvUsername = view.findViewById(R.id.tv_user);
         tvEmail = view.findViewById(R.id.tv_email);
@@ -209,7 +208,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     }
 
     private void loadProfileBVJ() {
-        ImageView close,web, lokasi,fb;
+        ImageView close,web, lokasi, ig;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getLayoutInflater();
         @SuppressLint("InflateParams")
@@ -244,8 +243,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
             }
         });
 
-        fb = dialogView.findViewById(R.id.ic_fb);
-        fb.setOnClickListener(new View.OnClickListener() {
+        ig = dialogView.findViewById(R.id.ic_ig);
+        ig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 igbvj();
