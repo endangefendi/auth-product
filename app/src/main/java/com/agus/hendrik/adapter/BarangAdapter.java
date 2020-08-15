@@ -18,7 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.agus.hendrik.activity.DetailBarangActivity;
 import com.agus.hendrik.model.Barang;
 import com.agus.hendrik.myapp.R;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,13 @@ public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.MyViewHold
         holder.nama.setText(barangs.get(position).getNama());
         holder.merk.setText(barangs.get(position).getMerk());
         holder.ukuran.setText(barangs.get(position).getUkuran());
-        Picasso.get().load(barangs.get(position).getFoto()).placeholder(R.drawable.ic_profil).into(holder.foto);
+
+        Glide.with(context).load(barangs.get(position).getFoto())
+                .placeholder(R.drawable.ic_profil)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .thumbnail(0.5f)
+                .into(holder.foto);
+
         holder.foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +64,12 @@ public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.MyViewHold
 
                 String foto = barangs.get(holder.getAdapterPosition()).getFoto();
                 ImageView imageViewFoto = myView.findViewById(R.id.ivFoto);
-                Picasso.get().load(foto).placeholder(R.drawable.ic_profil).into(imageViewFoto);
+
+                Glide.with(context).load(foto)
+                        .placeholder(R.drawable.ic_profil)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .thumbnail(0.5f)
+                        .into(imageViewFoto);
 
                 final AlertDialog b = dialogBuilder.create();
                 b.setCanceledOnTouchOutside(true);

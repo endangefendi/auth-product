@@ -22,13 +22,14 @@ import android.widget.TextView;
 import com.agus.hendrik.activity.LoginActivity;
 import com.agus.hendrik.activity.ViewFotoActivity;
 import com.agus.hendrik.myapp.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 
@@ -105,10 +106,12 @@ public class ProfileFragment extends Fragment {
             namaLengkap.setText(strnama_lengkap);
             email.setText(stremail);
 
-            Picasso.get()
-                    .load(strfoto)
-                    .fit()
+            Glide.with(getContext()).load(strfoto)
+                    .placeholder(R.drawable.ic_profil)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .thumbnail(0.5f)
                     .into(foto);
+
         }
 
         assert getArguments() != null;

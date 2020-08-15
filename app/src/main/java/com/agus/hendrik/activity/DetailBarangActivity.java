@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.agus.hendrik.myapp.R;
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -76,7 +76,12 @@ public class DetailBarangActivity extends AppCompatActivity {
 
                     String foto = bun.getString("foto");
                     ImageView imageViewFoto = myView.findViewById(R.id.ivFoto);
-                    Picasso.get().load(foto).placeholder(R.drawable.ic_profil).into(imageViewFoto);
+
+                    Glide.with(DetailBarangActivity.this).load(foto)
+                            .placeholder(R.drawable.ic_profil)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .thumbnail(0.5f)
+                            .into(imageViewFoto);
 
                     final AlertDialog b = dialogBuilder.create();
                     b.setCanceledOnTouchOutside(true);

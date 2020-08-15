@@ -54,6 +54,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     private RecyclerView recyclerView, recyclerViewnew;
     private ArrayList<Barang> list,listNew;
 
+    RelativeLayout ReBest, ReNew;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +69,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         pBarNew = view.findViewById(R.id.progressBar1);
         RelativeLayout frame = view.findViewById(R.id.frameTitle);
         frame.setVisibility(View.VISIBLE);
+        ReBest = view.findViewById(R.id.ReBest);
+        ReNew = view.findViewById(R.id.ReNew);
         tvUsername = view.findViewById(R.id.tv_user);
         tvEmail = view.findViewById(R.id.tv_email);
         tvTitle = view.findViewById(R.id.tv_title);
@@ -132,12 +135,15 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listNew.clear();
                 if (dataSnapshot.exists()) {
+                    ReNew.setVisibility(View.VISIBLE);
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         Barang pojo = issue.getValue(Barang.class);
                         if(pojo.getStatus().equals("Tersedia")){
                             listNew.add(pojo);
                         }
                     }
+                }else {
+                    ReNew.setVisibility(View.GONE);
                 }
                 barangAdapternew.notifyDataSetChanged();
                 pBarNew.setVisibility(View.GONE);
@@ -166,12 +172,15 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
                 if (dataSnapshot.exists()) {
+                    ReBest.setVisibility(View.VISIBLE);
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         Barang pojo = issue.getValue(Barang.class);
                         if(pojo.getStatus().equals("Tersedia")){
                             list.add(pojo);
                         }
                     }
+                }else {
+                 ReBest.setVisibility(View.GONE);
                 }
                 barangAdapterBest.notifyDataSetChanged();
                 pBar.setVisibility(View.GONE);

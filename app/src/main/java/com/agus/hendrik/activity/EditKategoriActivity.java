@@ -23,12 +23,12 @@ import android.widget.Toast;
 import com.agus.hendrik.model.Barang;
 import com.agus.hendrik.myapp.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -42,7 +42,7 @@ public class EditKategoriActivity extends AppCompatActivity {
             "Old",
             "Best"};
 
-    private String[] arr = {
+    private String[] tringSatuan = {
             "Pcs",
             "Box",
             "Pasang",
@@ -50,7 +50,7 @@ public class EditKategoriActivity extends AppCompatActivity {
 
     String kat,ss;
     private ProgressDialog progressDialog;
-    private Spinner spin,spinner;
+    private Spinner spinner_kategori,spinner_satuan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,18 +94,62 @@ public class EditKategoriActivity extends AppCompatActivity {
             satuan.setText(noSatuan);
             final String sat = Ssatuan.substring(i,Ssatuan.length());
 
-            spinner = findViewById(R.id.satuanSpiner);
-            spin = findViewById(R.id.spinner);
+            spinner_kategori = findViewById(R.id.spinner_kategori);
+            spinner_satuan = findViewById(R.id.spinner_satuan);
             final ArrayAdapter<String> adapterArr = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1, arr);
-            spinner.setAdapter(adapterArr);
+                    android.R.layout.simple_list_item_1, tringSatuan);
+            spinner_satuan.setAdapter(adapterArr);
 
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            spinner_satuan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    ss = spinner.getSelectedItem().toString();
-                    Toast.makeText(EditKategoriActivity.this,"" +
-                            spinner.getSelectedItemId(),Toast.LENGTH_SHORT).show();
+                    ss = spinner_satuan.getSelectedItem().toString();
+//                    Toast.makeText(EditKategoriActivity.this,"" +
+//                            spinner.getSelectedItemId(),Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    switch (sat) {
+                        case "Lusin":
+                            spinner_satuan.setSelection(3);
+                            break;
+                        case "Box":
+                            spinner_satuan.setSelection(1);
+                            break;
+                        case "Pasang":
+                            spinner_satuan.setSelection(2);
+                            break;
+                        case "Pcs":
+                            spinner_satuan.setSelection(0);
+                            break;
+                    }
+                }
+            });
+
+            switch (sat) {
+                case "Lusin":
+                    spinner_satuan.setSelection(3);
+                    break;
+                case "Box":
+                    spinner_satuan.setSelection(1);
+                    break;
+                case "Pasang":
+                    spinner_satuan.setSelection(2);
+                    break;
+                case "Pcs":
+                    spinner_satuan.setSelection(0);
+                    break;
+            }
+            ArrayAdapter<String> adapterKategori = new ArrayAdapter<>(this,
+                    android.R.layout.simple_list_item_1, kkategori);
+            spinner_kategori.setAdapter(adapterKategori);
+            spinner_kategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    kat = spinner_kategori.getSelectedItem().toString();
+//                    Toast.makeText(EditKategoriActivity.this,"" +
+//                            spin.getSelectedItemId(),Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -113,51 +157,32 @@ public class EditKategoriActivity extends AppCompatActivity {
                     if (kategori != null) {
                         switch (kategori) {
                             case "Best":
-                                spinner.setSelection(2);
+                                spinner_kategori.setSelection(2);
                                 break;
                             case "Old":
-                                spinner.setSelection(1);
+                                spinner_kategori.setSelection(1);
                                 break;
                             case "New":
-                                spinner.setSelection(0);
+                                spinner_kategori.setSelection(0);
                                 break;
                         }
                     }
                 }
             });
 
-
-            ArrayAdapter<String> adapterKategori = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1, kkategori);
-            spin.setAdapter(adapterKategori);
-            spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    kat = spin.getSelectedItem().toString();
-                    Toast.makeText(EditKategoriActivity.this,"" +
-                            spin.getSelectedItemId(),Toast.LENGTH_SHORT).show();
+            if (kategori != null) {
+                switch (kategori) {
+                    case "Best":
+                        spinner_kategori.setSelection(2);
+                        break;
+                    case "Old":
+                        spinner_kategori.setSelection(1);
+                        break;
+                    case "New":
+                        spinner_kategori.setSelection(0);
+                        break;
                 }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                    switch (sat) {
-                        case "Lusin":
-                            spin.setSelection(3);
-                            break;
-                        case "Box":
-                            spin.setSelection(1);
-                            break;
-                        case "Pasang":
-                            spin.setSelection(2);
-                            break;
-                        case "Pcs":
-                            spin.setSelection(0);
-                            break;
-                    }
-                }
-            });
-
-
+            }
             merk.setText(bun.getString("merk"));
             double h = bun.getDouble("harga");
             harga.setText(String.valueOf(Math.round(h)));
@@ -177,7 +202,12 @@ public class EditKategoriActivity extends AppCompatActivity {
 
                     String foto = bun.getString("foto");
                     ImageView imageViewFoto = myView.findViewById(R.id.ivFoto);
-                    Picasso.get().load(foto).placeholder(R.drawable.ic_profil).into(imageViewFoto);
+
+                    Glide.with(EditKategoriActivity.this).load(foto)
+                            .placeholder(R.drawable.ic_profil)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .thumbnail(0.5f)
+                            .into(imageViewFoto);
 
                     final AlertDialog b = dialogBuilder.create();
                     b.setCanceledOnTouchOutside(true);

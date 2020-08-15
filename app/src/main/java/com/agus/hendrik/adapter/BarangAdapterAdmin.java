@@ -28,12 +28,13 @@ import com.agus.hendrik.activity.DetailBarangActivity;
 import com.agus.hendrik.activity.EditKategoriActivity;
 import com.agus.hendrik.model.Barang;
 import com.agus.hendrik.myapp.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,8 +74,13 @@ public class BarangAdapterAdmin extends RecyclerView.Adapter<BarangAdapterAdmin.
         holder.tvnama.setText(barangs.get(position).getNama());
         holder.tvmerk.setText(barangs.get(position).getMerk());
         holder.tvukuran.setText(barangs.get(position).getUkuran());
-        Picasso.get().load(barangs.get(position).getFoto()).placeholder(R.drawable.ic_profil)
+
+        Glide.with(context).load(barangs.get(position).getFoto())
+                .placeholder(R.drawable.ic_profil)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .thumbnail(0.5f)
                 .into(holder.imfoto);
+
         holder.imfoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +92,11 @@ public class BarangAdapterAdmin extends RecyclerView.Adapter<BarangAdapterAdmin.
 
                 String foto = barangs.get(holder.getAdapterPosition()).getFoto();
                 ImageView imageViewFoto = myView.findViewById(R.id.ivFoto);
-                Picasso.get().load(foto).placeholder(R.drawable.ic_profil).into(imageViewFoto);
+                Glide.with(context).load(foto)
+                        .placeholder(R.drawable.ic_profil)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .thumbnail(0.5f)
+                        .into(imageViewFoto);
 
                 final AlertDialog b = dialogBuilder.create();
                 b.setCanceledOnTouchOutside(true);

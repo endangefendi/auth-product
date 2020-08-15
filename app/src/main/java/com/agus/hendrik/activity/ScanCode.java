@@ -30,6 +30,8 @@ import android.widget.Toast;
 import com.agus.hendrik.model.Barang;
 import com.agus.hendrik.model.WaktuCek;
 import com.agus.hendrik.myapp.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,8 +44,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
-import com.squareup.picasso.Picasso;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -209,9 +209,11 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
 
 
         CircleImageView ImageFoto = dialogView.findViewById(R.id.iv_foto_barang);
-        Picasso.get()
-                .load(foto)
-                .fit()
+
+        Glide.with(ScanCode.this).load(foto)
+                .placeholder(R.drawable.ic_profil)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .thumbnail(0.5f)
                 .into(ImageFoto);
 
         ImageView close = dialogView.findViewById(R.id.btn_close);

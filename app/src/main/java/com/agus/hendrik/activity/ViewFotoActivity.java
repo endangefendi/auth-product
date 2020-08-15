@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.agus.hendrik.myapp.R;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class ViewFotoActivity extends AppCompatActivity {
 
@@ -24,9 +25,10 @@ public class ViewFotoActivity extends AppCompatActivity {
         assert url != null;
         Log.d("ViewFotoActivity : ", url);
 
-        Picasso.get()
-                .load(url)
-                .fit()
+        Glide.with(ViewFotoActivity.this).load(url)
+                .placeholder(R.drawable.ic_profil)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .thumbnail(0.5f)
                 .into(imageView);
 
         ImageView back = findViewById(R.id.iv_back);
