@@ -73,7 +73,8 @@ public class BarangAdapterAdmin extends RecyclerView.Adapter<BarangAdapterAdmin.
         holder.tvnama.setText(barangs.get(position).getNama());
         holder.tvmerk.setText(barangs.get(position).getMerk());
         holder.tvukuran.setText(barangs.get(position).getUkuran());
-        Picasso.get().load(barangs.get(position).getFoto()).into(holder.imfoto);
+        Picasso.get().load(barangs.get(position).getFoto()).placeholder(R.drawable.ic_profil)
+                .into(holder.imfoto);
         holder.imfoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +86,7 @@ public class BarangAdapterAdmin extends RecyclerView.Adapter<BarangAdapterAdmin.
 
                 String foto = barangs.get(holder.getAdapterPosition()).getFoto();
                 ImageView imageViewFoto = myView.findViewById(R.id.ivFoto);
-                Picasso.get().load(foto).into(imageViewFoto);
+                Picasso.get().load(foto).placeholder(R.drawable.ic_profil).into(imageViewFoto);
 
                 final AlertDialog b = dialogBuilder.create();
                 b.setCanceledOnTouchOutside(true);

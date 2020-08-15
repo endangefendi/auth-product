@@ -45,7 +45,7 @@ public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.MyViewHold
         holder.nama.setText(barangs.get(position).getNama());
         holder.merk.setText(barangs.get(position).getMerk());
         holder.ukuran.setText(barangs.get(position).getUkuran());
-        Picasso.get().load(barangs.get(position).getFoto()).into(holder.foto);
+        Picasso.get().load(barangs.get(position).getFoto()).placeholder(R.drawable.ic_profil).into(holder.foto);
         holder.foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.MyViewHold
 
                 String foto = barangs.get(holder.getAdapterPosition()).getFoto();
                 ImageView imageViewFoto = myView.findViewById(R.id.ivFoto);
-                Picasso.get().load(foto).into(imageViewFoto);
+                Picasso.get().load(foto).placeholder(R.drawable.ic_profil).into(imageViewFoto);
 
                 final AlertDialog b = dialogBuilder.create();
                 b.setCanceledOnTouchOutside(true);

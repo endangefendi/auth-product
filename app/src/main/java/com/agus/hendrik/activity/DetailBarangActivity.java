@@ -76,7 +76,7 @@ public class DetailBarangActivity extends AppCompatActivity {
 
                     String foto = bun.getString("foto");
                     ImageView imageViewFoto = myView.findViewById(R.id.ivFoto);
-                    Picasso.get().load(foto).into(imageViewFoto);
+                    Picasso.get().load(foto).placeholder(R.drawable.ic_profil).into(imageViewFoto);
 
                     final AlertDialog b = dialogBuilder.create();
                     b.setCanceledOnTouchOutside(true);
