@@ -2,7 +2,6 @@ package com.agus.hendrik.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -11,19 +10,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
-import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +25,6 @@ import com.agus.hendrik.model.WaktuCek;
 import com.agus.hendrik.myapp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,20 +34,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-import android.telephony.TelephonyManager;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
-
-import static android.Manifest.permission_group.CAMERA;
 
 public class ScanCode extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private static final String TAG = "Scan Code";

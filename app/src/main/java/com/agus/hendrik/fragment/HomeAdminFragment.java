@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.agus.hendrik.myapp.R;
 
-
 public class HomeAdminFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;

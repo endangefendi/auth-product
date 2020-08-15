@@ -45,7 +45,6 @@ import com.google.firebase.storage.UploadTask;
 import com.google.zxing.Result;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 

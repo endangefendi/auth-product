@@ -1,6 +1,5 @@
 package com.agus.hendrik.model;
 
-import java.util.Date;
 
 public class WaktuCek {
     private String uid, code_barang, date;

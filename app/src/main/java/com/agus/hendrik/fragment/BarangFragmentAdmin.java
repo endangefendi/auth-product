@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.agus.hendrik.adapter.BarangAdapter;
 import com.agus.hendrik.adapter.BarangAdapterAdmin;
 import com.agus.hendrik.model.Barang;
 import com.agus.hendrik.myapp.R;
