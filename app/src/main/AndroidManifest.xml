@@ -20,7 +20,7 @@
         android:largeHeap="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity">
 
-        <activity android:name="com.agus.hendrik.activity.EditAdminActicity"
+        <activity android:name="com.agus.hendrik.admin.EditAdminActicity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
@@ -36,7 +36,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name="com.agus.hendrik.activity.CreateActivity"
+        <activity android:name="com.agus.hendrik.admin.CreateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity"  />
@@ -56,11 +56,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity"  />
-        <activity android:name="com.agus.hendrik.activity.VerifyPhoneActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            tools:ignore="LockedOrientationActivity"  />
-        <activity android:name="com.agus.hendrik.activity.MainActivity"
+        <activity android:name="com.agus.hendrik.user.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />

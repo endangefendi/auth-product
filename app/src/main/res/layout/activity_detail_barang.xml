@@ -306,6 +306,37 @@
                     android:layout_marginTop="20dp"
                     android:background="#EDEDED" />
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/reKategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reHarga"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kateori"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/et_kategori"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="Harga"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_below="@+id/et_kategori"
+                    android:layout_marginTop="20dp"
+                    android:background="#EDEDED" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

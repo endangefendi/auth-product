@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.agus.hendrik.activity.CreateActivity">
+    tools:context="com.agus.hendrik.admin.CreateActivity">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -169,6 +169,7 @@
                         android:layout_height="wrap_content"
                         android:text=" : "
                         android:textColor="@color/black" />
+
                     <EditText
                         android:id="@+id/et_namaBarang"
                         android:layout_width="match_parent"
@@ -177,6 +178,42 @@
                         android:hint="Nama Barang"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/reKaregori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="123dp"
+                        android:layout_height="wrap_content"
+                        android:text="Kategori Barang"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" : "
+                        android:textColor="@color/black" />
+
+                    <Spinner
+                        android:id="@+id/spinner_kategori"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_alignParentEnd="true"
+                        android:textAlignment="textEnd"
+                        android:layout_marginStart="10dp"
+                        />
                 </LinearLayout>
             </RelativeLayout>
 

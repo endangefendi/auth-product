@@ -666,6 +666,42 @@
                 </LinearLayout>
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/reJenis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reTipe"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="123dp"
+                        android:layout_height="wrap_content"
+                        android:text="Jenis"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" : "
+                        android:textColor="@color/black" />
+                    <Spinner
+                        android:id="@+id/spinner_jenis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_alignParentEnd="true"
+                        android:textAlignment="textEnd"
+                        android:layout_marginStart="10dp"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+
         </LinearLayout>
 
 

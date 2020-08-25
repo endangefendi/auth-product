@@ -1,16 +1,11 @@
 <resources>
     <string name="app_name">Check Product</string>
-    <string name="inbox">Inbox</string>
-    <string name="profile">Profile</string>
     <string name="product">Product</string>
     <string name="detail_product">Detail Product</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="TOKEN_ID">948337263308-dfrm5rfllghes9vhbhpbeic7n4rlr97t.apps.googleusercontent.com</string>
-    <string name="user">User</string>
     <string name="add_new_product">Add New Product</string>
 
     <string name="admin_app">Admin App</string>
-    <string name="about_bvj">Bakul Variasi Jogja (BVJ) merupakan merupakan toko variasi dan penjualan alat – alat motor yang telah berdiri sejak tahun 2013, yang beralamatkan di Jl. Perkutut no. 07 Demangan Baru Yogyakarta, awal berdirinya Bakul Variasi Jogja (BVJ) bapak Andi Setiawan selaku pemilik toko hanya menerima pemasangan variasi motor, selama satu tahun toko variasi tersebut memiliki cukup banyak pelanggan sehingga pemilik toko memperluas usahanya dengan cara menambah alat – alat variasi motor agar dapat langsung di aplikasikan.</string>
 
 </resources>

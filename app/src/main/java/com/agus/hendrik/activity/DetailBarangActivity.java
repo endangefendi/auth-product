@@ -25,7 +25,7 @@ public class DetailBarangActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_barang);
 
-        TextView nama,no, code_barang, merk, satuan, keterangan, ukuran, harga;
+        TextView nama,no, code_barang, merk, satuan, keterangan, ukuran, harga, kategori;
         CircleImageView foto;
 
         nama =  findViewById(R.id.namaBarang);
@@ -37,6 +37,7 @@ public class DetailBarangActivity extends AppCompatActivity {
         ukuran =  findViewById(R.id.ukuranBarang);
         foto = findViewById(R.id.fotoBarang);
         harga = findViewById(R.id.et_harga);
+        kategori = findViewById(R.id.et_kategori);
 
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
@@ -50,6 +51,7 @@ public class DetailBarangActivity extends AppCompatActivity {
             keterangan.setText(bun.getString("keterangan"));
             ukuran.setText(bun.getString("ukuran"));
             merk.setText(bun.getString("merk"));
+            kategori.setText(bun.getString("kategori"));
             //harga.setText(String.valueOf(bun.getDouble("harga")));
 
             harga.setText(formatRupiah.format(bun.getDouble("harga")));
