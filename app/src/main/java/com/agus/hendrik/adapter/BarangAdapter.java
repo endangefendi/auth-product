@@ -96,6 +96,7 @@ public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.MyViewHold
                 String ukuran = barangs.get(holder.getAdapterPosition()).getUkuran();
                 String foto = barangs.get(holder.getAdapterPosition()).getFoto();
                 String kategori = barangs.get(holder.getAdapterPosition()).getKategori();
+                String jenis = barangs.get(holder.getAdapterPosition()).getJenis();
                 double harga = barangs.get(holder.getAdapterPosition()).getHarga();
 
                 Bundle bun= new Bundle();
@@ -109,6 +110,7 @@ public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.MyViewHold
                 bun.putString("kategori", kategori);
                 bun.putString("ukuran", ukuran);
                 bun.putString("foto", foto);
+                bun.putString("jenis", jenis);
                 bun.putDouble("harga", harga);
                 intent.putExtras(bun);
                 context.startActivity(intent);

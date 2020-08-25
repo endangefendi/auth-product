@@ -28,9 +28,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class EditKategoriActivity extends AppCompatActivity {
 
     private String[] kkategori = {
-            "New",
-            "Old",
-            "Best"};
+            "---Kategori---",
+            "Oli",
+            "Body",
+            "Shockbreaker",
+            "Ban",
+            "Velg"};
 
     private String[] tringSatuan = {
             "Pcs",
@@ -38,9 +41,13 @@ public class EditKategoriActivity extends AppCompatActivity {
             "Pasang",
             "Lusin"};
 
-    String kat,ss;
+    private String[] String_jenis = {
+            "New",
+            "Best"};
+
+    String kat,ss, jen;
     private ProgressDialog progressDialog;
-    private Spinner spinner_kategori,spinner_satuan;
+    private Spinner spinner_kategori,spinner_satuan, spinner_jenis;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +84,7 @@ public class EditKategoriActivity extends AppCompatActivity {
             keterangan.setText(bun.getString("keterangan"));
             ukuran.setText(bun.getString("ukuran"));
             final String kategori = bun.getString("kategori");
+            final String jenis = bun.getString("jenis");
 
             String Ssatuan = bun.getString("satuan");
             int i = Ssatuan.indexOf(" ");
@@ -89,6 +97,38 @@ public class EditKategoriActivity extends AppCompatActivity {
             final ArrayAdapter<String> adapterArr = new ArrayAdapter<>(this,
                     android.R.layout.simple_list_item_1, tringSatuan);
             spinner_satuan.setAdapter(adapterArr);
+
+            spinner_jenis = findViewById(R.id.spinner_jenis);
+            final ArrayAdapter<String> adapterjenis = new ArrayAdapter<>(this,
+                    android.R.layout.simple_list_item_1, String_jenis);
+            spinner_jenis.setAdapter(adapterjenis);
+
+            spinner_jenis.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    jen = spinner_jenis.getSelectedItem().toString();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    switch (jenis) {
+                        case "New":
+                            spinner_jenis.setSelection(0);
+                            break;
+                        case "Best":
+                            spinner_jenis.setSelection(1);
+                            break;
+                    }
+                }
+            });
+            switch (jenis) {
+                case "New":
+                    spinner_jenis.setSelection(0);
+                    break;
+                case "Best":
+                    spinner_jenis.setSelection(1);
+                    break;
+            }
 
             spinner_satuan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -144,14 +184,20 @@ public class EditKategoriActivity extends AppCompatActivity {
                 public void onNothingSelected(AdapterView<?> adapterView) {
                     if (kategori != null) {
                         switch (kategori) {
-                            case "Best":
-                                spinner_kategori.setSelection(2);
-                                break;
-                            case "Old":
+                            case "Oli":
                                 spinner_kategori.setSelection(1);
                                 break;
-                            case "New":
-                                spinner_kategori.setSelection(0);
+                            case "Body":
+                                spinner_kategori.setSelection(2);
+                                break;
+                            case "Shockbreaker":
+                                spinner_kategori.setSelection(3);
+                                break;
+                            case "Ban":
+                                spinner_kategori.setSelection(4);
+                                break;
+                            case "Velg":
+                                spinner_kategori.setSelection(5);
                                 break;
                         }
                     }
@@ -160,14 +206,20 @@ public class EditKategoriActivity extends AppCompatActivity {
 
             if (kategori != null) {
                 switch (kategori) {
-                    case "Best":
-                        spinner_kategori.setSelection(2);
-                        break;
-                    case "Old":
+                    case "Oli":
                         spinner_kategori.setSelection(1);
                         break;
-                    case "New":
-                        spinner_kategori.setSelection(0);
+                    case "Body":
+                        spinner_kategori.setSelection(2);
+                        break;
+                    case "Shockbreaker":
+                        spinner_kategori.setSelection(3);
+                        break;
+                    case "Ban":
+                        spinner_kategori.setSelection(4);
+                        break;
+                    case "Velg":
+                        spinner_kategori.setSelection(5);
                         break;
                 }
             }
@@ -241,7 +293,7 @@ public class EditKategoriActivity extends AppCompatActivity {
 
                 Barang upload = new Barang(final_nama, final_no, final_foto, final_code_barang,
                         final_merk, final_satuan, final_keterangan, final_ukuran,
-                        kat, final_harga, "Tersedia");
+                        kat, final_harga, "Tersedia",jen);
                 FirebaseDatabase.getInstance().getReference("Barang")
                         .child(String.valueOf(final_no)).setValue(upload);
                 progressDialog.dismiss();

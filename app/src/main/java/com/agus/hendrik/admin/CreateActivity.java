@@ -1,4 +1,4 @@
-package com.agus.hendrik.activity;
+package com.agus.hendrik.admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,13 +70,21 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
             "Pasang",
             "Lusin"};
     private Uri resultUri;
-
+    private Spinner spinner_kategori;
+    private String[] kkategori = {
+            "---Kategori---",
+            "Oli",
+            "Body",
+            "Shockbreaker",
+            "Ban",
+            "Velg"
+    };
 
     private static final int REQUEST_CODE_CAMERA = 1;
     private static final int REQUEST_CODE_GALLERY = 2;
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private StorageReference storageReference = firebaseStorage.getReference();
-
+    String kat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +94,25 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
 
         cekjumlahbarang();
         setContentView(R.layout.activity_create);
+
+        spinner_kategori = findViewById(R.id.spinner_kategori);
+        ArrayAdapter<String> adapterKategori = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, kkategori);
+        spinner_kategori.setAdapter(adapterKategori);
+        spinner_kategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                kat = spinner_kategori.getSelectedItem().toString();
+//                    Toast.makeText(EditKategoriActivity.this,"" +
+//                            spin.getSelectedItemId(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                kat ="";
+            }
+        });
+
         ImageView ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,7 +280,7 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
 
                                     Barang upload = new Barang(final_nama, final_no,
                                             final_foto, final_code_barang, final_merk, final_satuan , final_keterangan, final_ukuran,
-                                            "New", final_harga, "Tersedia");
+                                            kat, final_harga, "Tersedia", "New");
                                     FirebaseDatabase.getInstance().getReference("Barang")
                                             .child(String.valueOf(final_no)).setValue(upload);
                                     konfirTambahLagi();
@@ -298,6 +325,7 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
                 keterangan.setText("");
                 ukuran.setText("");
                 harga.setText("");
+                spinner_kategori.setSelection(0);
                 onResume();
                 contentFrame.setVisibility(View.VISIBLE);
                 imageView.setVisibility(View.GONE);
@@ -353,6 +381,10 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
             keterangan.requestFocus();
             return;
         }
+        if (kat.isEmpty() || kat.equalsIgnoreCase("---Kategori---") || kat.equalsIgnoreCase("null")){
+            Toast.makeText(this, "Silahkan pilih kategori barang",Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (strukuran.isEmpty()){
             ukuran.setError("Insert data");
             ukuran.requestFocus();
@@ -404,7 +436,7 @@ public class CreateActivity extends AppCompatActivity implements ZXingScannerVie
 
                                     Barang upload = new Barang(final_nama, final_no,
                                             final_foto, final_code_barang, final_merk, final_satuan , final_keterangan, final_ukuran,
-                                            "New", final_harga, "Tersedia");
+                                            kat, final_harga, "Tersedia","New");
                                     FirebaseDatabase.getInstance().getReference("Barang")
                                             .child(String.valueOf(final_no)).setValue(upload);
                                     konfirTambahLagi();

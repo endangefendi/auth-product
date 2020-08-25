@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.agus.hendrik.model.UserProfile;
 import com.agus.hendrik.myapp.R;
+import com.agus.hendrik.user.MainActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

@@ -1,4 +1,4 @@
-package com.agus.hendrik.activity;
+package com.agus.hendrik.admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

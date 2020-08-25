@@ -1,15 +1,16 @@
 package com.agus.hendrik.model;
 
 public class Barang {
-    private String nama, code_barang, foto, merk, satuan, keterangan, ukuran, kategori, status;
+    private String nama, code_barang, foto, merk, satuan, keterangan, ukuran, kategori, status, jenis;
     private int no;
     private double harga;
 
     public Barang() {
     }
 
-    public Barang(String nama, int no, String foto, String code_barang, String merk,String satuan, String keterangan, String ukuran, String kategori, double harga, String status) {
+    public Barang(String nama, int no, String foto, String code_barang, String merk,String satuan, String keterangan, String ukuran, String kategori, double harga, String status, String jenis) {
         this.nama = nama;
+        this.jenis = jenis;
         this.no = no;
         this.foto = foto;
         this.code_barang = code_barang;
@@ -20,6 +21,14 @@ public class Barang {
         this.kategori = kategori;
         this.status = status;
         this.harga = harga;
+    }
+
+    public String getJenis() {
+        return jenis;
+    }
+
+    public void setJenis(String jenis) {
+        this.jenis = jenis;
     }
 
     public String getNama() {

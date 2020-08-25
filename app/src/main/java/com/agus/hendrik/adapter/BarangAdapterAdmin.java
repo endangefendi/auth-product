@@ -43,6 +43,7 @@ public class BarangAdapterAdmin extends RecyclerView.Adapter<BarangAdapterAdmin.
     private String ukuran ;
     private String foto ;
     private String kategori;
+    private String jenis;
     private double harga;
     private ProgressDialog progressDialog;
 
@@ -200,6 +201,7 @@ public class BarangAdapterAdmin extends RecyclerView.Adapter<BarangAdapterAdmin.
         foto = barangs.get(holder.getAdapterPosition()).getFoto();
         kategori = barangs.get(holder.getAdapterPosition()).getKategori();
         harga = barangs.get(holder.getAdapterPosition()).getHarga();
+        jenis = barangs.get(holder.getAdapterPosition()).getJenis();
 
         Bundle bun= new Bundle();
         Intent intent= new Intent(holder.itemView.getContext(), EditKategoriActivity.class);
@@ -213,6 +215,7 @@ public class BarangAdapterAdmin extends RecyclerView.Adapter<BarangAdapterAdmin.
         bun.putString("ukuran", ukuran);
         bun.putString("foto", foto);
         bun.putDouble("harga", harga);
+        bun.putString("jenis", jenis);
         intent.putExtras(bun);
         context.startActivity(intent);
     }
