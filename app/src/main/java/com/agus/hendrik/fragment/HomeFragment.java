@@ -33,6 +33,7 @@ import com.agus.hendrik.adapter.SliderAdapter;
 import com.agus.hendrik.adapter.kategoriAdapter;
 import com.agus.hendrik.model.Barang;
 import com.agus.hendrik.model.Home;
+import com.agus.hendrik.model.KategoriModel;
 import com.agus.hendrik.myapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,15 +48,16 @@ import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickListener {
+public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickListener , kategoriAdapter.OnItemClickListener{
     private GridView grdView;
 
     private static final String TAG = "Home Fragment";
 
-    private ProgressBar pBar,pBarNew,pBarKategori;
+    private ProgressBar pBar,pBarNew;
     private TextView tvUsername,tvEmail,tvTitle;
-    private RecyclerView recyclerView, recyclerViewnew, recyclerViewKategori;
-    private ArrayList<Barang> list,listNew,listkategori;
+    private RecyclerView recyclerView, recyclerViewnew;
+    private ArrayList<Barang> list,listNew;
+    GridView listkategori;
 
     RelativeLayout ReBest, ReNew, Rekategori;
     @Override
@@ -67,9 +69,9 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view   = inflater.inflate(R.layout.fragment_home, container, false);
+        listkategori     = view.findViewById(R.id.listkategori);
         grdView     = view.findViewById(R.id.gv_list);
         pBar = view.findViewById(R.id.progressBar);
-        pBarKategori = view.findViewById(R.id.pBarKategori);
         pBarNew = view.findViewById(R.id.progressBar1);
         RelativeLayout frame = view.findViewById(R.id.frameTitle);
         frame.setVisibility(View.VISIBLE);
@@ -81,10 +83,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         tvTitle = view.findViewById(R.id.tv_title);
         recyclerView = view.findViewById(R.id.list);
         recyclerViewnew = view.findViewById(R.id.listNew);
-        recyclerViewKategori = view.findViewById(R.id.listkategori);
         recyclerView.setVisibility(View.GONE);
         recyclerViewnew.setVisibility(View.GONE);
-        recyclerViewKategori.setVisibility(View.GONE);
         SliderView sliderView = view.findViewById(R.id.imageSlider);
 
         SliderAdapter adapter1 = new SliderAdapter(getContext());
@@ -107,9 +107,11 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
 
         HomeAdapter homeAdapter = new HomeAdapter(getContext(), 1, this);
         grdView.setAdapter(homeAdapter);
+
+        kategoriAdapter Adapter = new kategoriAdapter(getContext(),  this);
+        listkategori.setAdapter(Adapter);
         pBar.setVisibility(View.VISIBLE);
         pBarNew.setVisibility(View.VISIBLE);
-        pBarKategori.setVisibility(View.VISIBLE);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -127,47 +129,41 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
 
         list = new ArrayList<>();
         listNew = new ArrayList<>();
-        listkategori = new ArrayList<>();
 
-        loadKategori();
-    }
-
-    private void loadKategori() {
-        final kategoriAdapter kategoriAdapter = new kategoriAdapter(getActivity(),listkategori);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerViewKategori.setLayoutManager(llm);
-        recyclerViewKategori.setAdapter(kategoriAdapter);
-
-        Query queryNew =  FirebaseDatabase.getInstance().getReference().child("T_Kategori").orderByChild("kategori");
-        queryNew.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listkategori.clear();
-                if (dataSnapshot.exists()) {
-                    Rekategori.setVisibility(View.VISIBLE);
-                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        Barang pojo = issue.getValue(Barang.class);
-                        if (pojo.getKategori().equalsIgnoreCase(pojo.getKategori().toString()) ) {
-                            listkategori.add(pojo);
-                        }
-                    }
-                }else {
-                    Rekategori.setVisibility(View.GONE);
-                }
-                kategoriAdapter.notifyDataSetChanged();
-                pBarKategori.setVisibility(View.GONE);
-                recyclerViewKategori.setVisibility(View.VISIBLE);
-                recyclerViewKategori.setAdapter(kategoriAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
-            }
-        });
         loadBestProduct();
     }
+//
+//    private void loadKategori() {
+//
+//        Query queryNew =  FirebaseDatabase.getInstance().getReference().child("T_Kategori").orderByChild("kategori");
+//        queryNew.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                listkategori.clear();
+//                if (dataSnapshot.exists()) {
+//                    Rekategori.setVisibility(View.VISIBLE);
+//                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+//                        Barang pojo = issue.getValue(Barang.class);
+//                        if (pojo.getKategori().equalsIgnoreCase(pojo.getKategori().toString()) ) {
+//                            listkategori.add(pojo);
+//                        }
+//                    }
+//                }else {
+//                    Rekategori.setVisibility(View.GONE);
+//                }
+//                kategoriAdapter.notifyDataSetChanged();
+//                pBarKategori.setVisibility(View.GONE);
+//                recyclerViewKategori.setVisibility(View.VISIBLE);
+//                recyclerViewKategori.setAdapter(kategoriAdapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(getActivity(), "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        loadBestProduct();
+//    }
 
     private void loadNewBarang() {
         final ContentAdapter barangAdapternew = new ContentAdapter(getActivity(),listNew);
@@ -345,4 +341,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     }
 
 
+    @Override
+    public void onItemClicked(int position, KategoriModel item) {
+
+    }
 }

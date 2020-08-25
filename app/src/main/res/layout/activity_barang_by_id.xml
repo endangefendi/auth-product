@@ -39,7 +39,7 @@
             android:background="#EDEDED" />
     </RelativeLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/frame_barang"
@@ -50,8 +50,18 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brang tidak tersedia"
+            android:textSize="25sp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:id="@+id/no_itemm"/>
 
-    </FrameLayout>
+    </RelativeLayout>
 
     <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"

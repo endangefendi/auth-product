@@ -35,6 +35,8 @@ public class BarangByIdActivity extends AppCompatActivity {
 
         final String id_kategori = getIntent().getStringExtra("id_kategori");
 
+        final TextView no_item = findViewById(R.id.no_itemm);
+        no_item.setVisibility(View.VISIBLE);
         TextView tv_title = findViewById(R.id.tv_title);
         tv_title.setText("Product - " + id_kategori);
         ImageView ivBack = findViewById(R.id.iv_back);
@@ -57,6 +59,9 @@ public class BarangByIdActivity extends AppCompatActivity {
                     if(p.getStatus().equals("Tersedia") && p.getKategori().equalsIgnoreCase(id_kategori)){
                         list.add(p);
                     }
+                }
+                if (list.size()>0){
+                    no_item.setVisibility(View.GONE);
                 }
                 adapter = new BarangAdapter(BarangByIdActivity.this, list);
                 recyclerView.setAdapter(adapter);
