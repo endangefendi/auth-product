@@ -90,10 +90,10 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="ScrollViewCount">
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,27 +152,19 @@
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/textViewkategori1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="20dp"
-                        android:text=">>>"
-                        android:textColor="@color/coklat"
-                        android:textSize="12sp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/listkategori"
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/textViewkategori"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:verticalScrollbarPosition="defaultPosition">
+                        android:layout_below="@id/textViewkategori">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/listkategori"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:verticalScrollbarPosition="defaultPosition"/>
 
-                    </androidx.recyclerview.widget.RecyclerView>
+                    </FrameLayout>
 
                     <ProgressBar
                         android:id="@+id/pBarKategori"
@@ -283,7 +275,7 @@
 
                 </RelativeLayout>
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 <!--
     <com.google.android.material.floatingactionbutton.FloatingActionButton

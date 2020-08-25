@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,11 +135,11 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     private void loadKategori() {
         final kategoriAdapter kategoriAdapter = new kategoriAdapter(getActivity(),listkategori);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewKategori.setLayoutManager(llm);
         recyclerViewKategori.setAdapter(kategoriAdapter);
 
-        Query queryNew =  FirebaseDatabase.getInstance().getReference().child("Barang").orderByChild("kategori");
+        Query queryNew =  FirebaseDatabase.getInstance().getReference().child("T_Kategori").orderByChild("kategori");
         queryNew.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -147,7 +148,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
                     Rekategori.setVisibility(View.VISIBLE);
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         Barang pojo = issue.getValue(Barang.class);
-                        if(pojo.getStatus().equals("Tersedia")){
+                        if (pojo.getKategori().equalsIgnoreCase(pojo.getKategori().toString()) ) {
                             listkategori.add(pojo);
                         }
                     }
