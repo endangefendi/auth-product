@@ -10,53 +10,63 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_logo_bvj"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_logo_bvj"
-        android:supportsRtl="true"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme"
-        android:hardwareAccelerated="false"
         android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_logo_bvj"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity">
-
-        <activity android:name="com.agus.hendrik.admin.EditAdminActicity"
+        <activity android:name="com.agus.hendrik.user.BarangByIdActivity"></activity>
+        <activity
+            android:name="com.agus.hendrik.admin.EditAdminActicity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name="com.agus.hendrik.activity.EditKategoriActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            tools:ignore="LockedOrientationActivity"  />
-        <activity android:name="com.agus.hendrik.activity.DashboadAdmin"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            tools:ignore="LockedOrientationActivity"  />
-        <activity android:name="com.agus.hendrik.activity.DetailBarangActivity"
+        <activity
+            android:name="com.agus.hendrik.activity.EditKategoriActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name="com.agus.hendrik.admin.CreateActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            tools:ignore="LockedOrientationActivity"  />
-        <activity android:name="com.agus.hendrik.activity.BarangActivity"
+        <activity
+            android:name="com.agus.hendrik.activity.DashboadAdmin"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name="com.agus.hendrik.activity.ViewFotoActivity"
+        <activity
+            android:name="com.agus.hendrik.activity.DetailBarangActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            tools:ignore="LockedOrientationActivity"  />
-        <activity android:name="com.agus.hendrik.activity.LoginActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.agus.hendrik.admin.CreateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            tools:ignore="LockedOrientationActivity"  />
-        <activity android:name="com.agus.hendrik.activity.ScanCode"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.agus.hendrik.activity.BarangActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            tools:ignore="LockedOrientationActivity"  />
-        <activity android:name="com.agus.hendrik.user.MainActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.agus.hendrik.activity.ViewFotoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.agus.hendrik.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.agus.hendrik.activity.ScanCode"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.agus.hendrik.user.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
