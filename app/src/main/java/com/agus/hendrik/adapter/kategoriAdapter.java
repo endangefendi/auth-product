@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.agus.hendrik.model.Barang;
 import com.agus.hendrik.myapp.R;
-import com.agus.hendrik.user.BarangByIdActivity;
+import com.agus.hendrik.activity.BarangByIdActivity;
 
 import java.util.ArrayList;
 

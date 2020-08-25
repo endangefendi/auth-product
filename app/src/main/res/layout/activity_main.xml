@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    tools:context="com.agus.hendrik.user.MainActivity">
+    tools:context="com.agus.hendrik.activity.MainActivity">
 
     <FrameLayout
         android:id="@+id/container"

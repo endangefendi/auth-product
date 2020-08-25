@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.agus.hendrik.admin.EditAdminActicity;
+import com.agus.hendrik.activity.EditAdminActicity;
 import com.agus.hendrik.adapter.ContentAdapterBarangTidakAkrif;
 import com.agus.hendrik.model.Barang;
 import com.agus.hendrik.myapp.R;

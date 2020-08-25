@@ -1,4 +1,4 @@
-package com.agus.hendrik.user;
+package com.agus.hendrik.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import com.agus.hendrik.activity.ScanCode;
 import com.agus.hendrik.fragment.HomeFragment;
 import com.agus.hendrik.fragment.ProfileFragment;
 import com.agus.hendrik.myapp.R;

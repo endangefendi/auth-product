@@ -9,7 +9,6 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import com.agus.hendrik.model.UserProfile;
 import com.agus.hendrik.myapp.R;
-import com.agus.hendrik.user.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

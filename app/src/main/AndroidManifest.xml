@@ -19,9 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity">
-        <activity android:name="com.agus.hendrik.user.BarangByIdActivity"></activity>
+        <activity android:name="com.agus.hendrik.activity.BarangByIdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name="com.agus.hendrik.admin.EditAdminActicity"
+            android:name="com.agus.hendrik.activity.EditAdminActicity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
@@ -41,7 +44,7 @@
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.agus.hendrik.admin.CreateActivity"
+            android:name="com.agus.hendrik.activity.CreateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
@@ -66,7 +69,7 @@
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.agus.hendrik.user.MainActivity"
+            android:name="com.agus.hendrik.activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             tools:ignore="LockedOrientationActivity" />

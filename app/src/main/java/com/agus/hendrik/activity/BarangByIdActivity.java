@@ -1,4 +1,4 @@
-package com.agus.hendrik.user;
+package com.agus.hendrik.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,13 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.agus.hendrik.activity.BarangActivity;
 import com.agus.hendrik.adapter.BarangAdapter;
 import com.agus.hendrik.model.Barang;
 import com.agus.hendrik.myapp.R;
